@@ -10,10 +10,11 @@
         ">Subscribe</button>
 
         <p>Amazon Shipping Calculation</p>
-        <input placeholder="Enter the Cost" class="js-cost-input">
-        <button onclick="
+        <input placeholder="Enter the Cost" class="js-cost-input"           onkeydown="keydown(event);">
+        <button onclick ="
             calctotal();
-        " class="js-total-cost">Calculate</button>
+        ">Calculate</button>
+        <p class="js-total"></p>
 
         <script>
             function Subscribe(){
@@ -27,13 +28,18 @@
             }
             function calctotal(){
                 const inputElem = document.querySelector('.js-cost-input');
-                let cost = inputElem.value;
+                let cost = Number(inputElem.value);
 
                 if(cost<40){
                     cost = cost + 10;
                 }
 
-                document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+                document.querySelector('.js-total').innerHTML = `$${cost}`;
+            }
+            function keydown(event){
+                if(event.key === 'Enter'){
+                    calctotal();
+                }
             }
         </script>
     </body>
