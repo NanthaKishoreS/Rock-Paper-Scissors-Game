@@ -12,39 +12,39 @@ function pcm(){
     const rn = Math.random();
     let cm = '';
     if(rn>=0 && rn<=1/3){
-        cm = 'Rock';
+        cm = 'rock';
     }else if(rn>1/3 && rn<=2/3){
-        cm = 'Paper';
+        cm = 'paper';
     }else{
-        cm = 'Scissors';
+        cm = 'scissor';
     } 
     return cm;
 }
 function playGame(playermove){
     let cm = pcm();
     let result = '';
-    if(playermove === 'Rock'){
-        if(cm === 'Rock'){
+    if(playermove === 'rock'){
+        if(cm === 'rock'){
             result = 'Tie';
         }
-        else if(cm === 'Paper'){
+        else if(cm === 'paper'){
             result = 'You Lose';
         }
         else{
             result = 'You Win !!';
         }
-    } else if (playermove === 'Paper'){
-            if(cm === 'Rock'){
+    } else if (playermove === 'paper'){
+            if(cm === 'rock'){
                 result = 'You Win !!';
             }
-            else if(cm === 'Paper'){
+            else if(cm === 'paper'){
                 result = 'Tie';
             }
             else{
                 result = 'You Lose';
             }
-    }else if(playermove === 'Scissors'){
-        if(cm === 'Rock'){
+    }else if(playermove === 'scissor'){
+        if(cm === 'rock'){
         result = 'You Lose';
         }
         else if(cm === 'Paper'){
@@ -69,7 +69,7 @@ function playGame(playermove){
     
     document.querySelector('.js-result').innerHTML = result;
 
-    document.querySelector('.js-moves').innerHTML = `You <img class="move-icon" src="${playermove}.png" > <img class="move-icon" src="${cm}.png" > Computer`
+    document.querySelector('.js-moves').innerHTML = `You <img class="move-icon" src="images/${playermove}.png" > <img class="move-icon" src="images/${cm}.png" > Computer`
         
 }
 
