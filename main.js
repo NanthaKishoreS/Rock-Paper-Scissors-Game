@@ -1,78 +1,78 @@
 let score= JSON.parse(localStorage.getItem('score')) || {
-    wins:0,
-    losses :0,
-    ties:0
-}
-
-updatescore();
-//Here we are using default operator and reassigning the scores to zero !!!
-//Here we can also use !Not operator instead of checking score === null...
-
-function pcm(){
-    const rn = Math.random();
-    let cm = '';
-    if(rn>=0 && rn<=1/3){
-        cm = 'rock';
-    }else if(rn>1/3 && rn<=2/3){
-        cm = 'paper';
-    }else{
-        cm = 'scissor';
-    } 
-    return cm;
-}
-function playGame(playermove){
-    let cm = pcm();
-    let result = '';
-    if(playermove === 'rock'){
-        if(cm === 'rock'){
-            result = 'Tie';
-        }
-        else if(cm === 'paper'){
-            result = 'You Lose';
-        }
-        else{
-            result = 'You Win !!';
-        }
-    } else if (playermove === 'paper'){
-            if(cm === 'rock'){
-                result = 'You Win !!';
+                Wins:0,
+                Losses :0,
+                Ties:0
             }
-            else if(cm === 'paper'){
-                result = 'Tie';
+
+            function calc_computermove(){
+                let computermove = '';
+                const rn = Math.random();
+                if(rn>0 && rn <1/3){
+                    computermove = 'rock'
+                } else if(rn>1/3 && rn<2/3){
+                    computermove = 'paper';
+                }else if(rn>2/3 && rn<1){
+                    computermove = 'scissor';
+                }
+                console.log(computermove);
+                return(computermove);
             }
-            else{
-                result = 'You Lose';
+
+            function calc_result(playermove){
+                let computermove = calc_computermove();
+                let result = '';
+                if(playermove === 'rock'){
+                    if('rock' === computermove){
+                        result = 'Tie';
+                    } else if('paper' === computermove){
+                        result = 'You Lose';
+                    } else if('scissor' === computermove){
+                        result = 'You Win';
+                    }
+                } else if(playermove === 'paper'){
+                    if('rock' === computermove){
+                        result = 'You Win';
+                    } else if('paper' === computermove){
+                        result = 'Tie';
+                    } else if('scissor' === computermove){
+                        result = 'You Lose';
+                    }
+                } else if(playermove === 'scissor'){
+                    if('rock' === computermove){
+                        result = 'You Lose';
+                    } else if('paper' === computermove){
+                        result = 'You Win';
+                    } else if('scissor' === computermove){
+                        result = 'Tie';
+                    }
+                }
+                console.log(result);
+
+                const inside_jsresult = document.querySelector('.js-result').innerHTML = result;
+
+                if(result === 'You Win'){
+                    score.Wins = score.Wins +1;
+                    console.log(score);
+                } else if(result === 'You Lose'){
+                    score.Loses = score.Loses +1;
+                    console.log(score);
+                }else if(result === 'Tie'){
+                    score.Ties = score.Ties + 1;
+                    console.log(score);
+                }
+
+                localStorage.setItem('score', JSON.stringify(score));
+
+                document.querySelector('.js-showmoves').innerHTML = `You <img class="move-icon" src="images/${playermove}.png" > --- <img class="move-icon" src="images/${computermove}.png" > Computer`;
+                updatescore();
             }
-    }else if(playermove === 'scissor'){
-        if(cm === 'rock'){
-        result = 'You Lose';
-        }
-        else if(cm === 'Paper'){
-            result = 'You Win !!';
-        }
-        else{
-            result = 'Tie';
-        }
-    } 
 
-    if(result === 'You Win !!'){
-        score.wins = score.wins+1;
-    } else if(result === 'You Lose'){
-        score.losses = score.losses+1;
-    } else if(result === 'Tie'){
-        score.ties = score.ties+1;
-    } 
+            function updatescore(){
+                document.querySelector('.js-finalscore').innerHTML = `Wins : ${score.Wins} Loses : ${score.Loses} Ties : ${score.Ties}`
+            }
 
-    localStorage.setItem('score', JSON.stringify(score));
-
-    updatescore();      
-    
-    document.querySelector('.js-result').innerHTML = result;
-
-    document.querySelector('.js-moves').innerHTML = `You <img class="move-icon" src="images/${playermove}.png" > <img class="move-icon" src="images/${cm}.png" > Computer`
-        
-}
-
-function updatescore(){
-    document.querySelector('.js-score').innerHTML =  `Wins:${score.wins}  Losses:${score.losses}   Ties:${score.ties}`;
-}
+            function resetscore(){
+                score.Wins = 0,
+                score.Loses = 0,
+                score.Ties = 0
+            }
